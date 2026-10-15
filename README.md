@@ -10,6 +10,8 @@ Formulário editorial e responsivo sobre os desafios comerciais de profissionais
 - Revisão com edição antes de compartilhar.
 - WhatsApp com a mensagem completa preparada para **+55 47 99113-2038**. A pessoa ainda precisa tocar em **Enviar no WhatsApp**.
 - Alternativa para copiar a mensagem, caso o WhatsApp não abra.
+- Experiência pensada primeiro para celular: controles de toque maiores, navegação fixa na base, etapas revisitáveis e campos com fonte de 16 px para evitar zoom automático no iOS.
+- Motion sem dependências: entrada tipográfica, transições de perguntas, seleção com check animado e botões com preenchimento. Efeitos de ponteiro são complementos para desktop. A preferência por redução de movimento é respeitada.
 
 O conselho em áudio é preparado e enviado pela Rebeka na conversa. O site não gera nem envia áudio automaticamente e não promete prazo de resposta.
 
@@ -36,6 +38,7 @@ Abra `http://127.0.0.1:4173`. Para conferir a sintaxe: `npm run check`.
 
 - Textos e perguntas: `index.html`.
 - Cores, fontes e responsividade: `styles.css`.
+- Sistema de interação e ajustes mobile: `experience.css` e `motion.js`.
 - Validação, revisão e mensagem do WhatsApp: `app.js`.
 - Telefone de destino: constante `WHATSAPP_PHONE` em `app.js`. Atualize também o link alternativo em `<noscript>` no HTML.
 
@@ -48,3 +51,5 @@ As respostas ficam somente na memória da página, sem analytics, cookies, local
 Fotografia: [Amr Taha / Unsplash](https://unsplash.com/photos/a-brown-leather-book-sitting-on-top-of-a-desk-next-to-a-cup-of-coffee-yFpDKK_w7kw), sob a licença Unsplash.
 
 Fontes locais: Cormorant Garamond e Manrope, distribuídas sob a SIL Open Font License. Licenças incluídas em `assets/fonts/`.
+
+Interações inspiradas no [MicroKit UI](https://microkit.co/), adaptadas à identidade da Rebeka e à navegação por toque. Créditos e licença em `THIRD_PARTY_NOTICES.md`.

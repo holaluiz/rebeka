@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
   <meta name="theme-color" content="#f5f1e9">
   <meta name="description" content="Conte à Rebeka seu maior desafio para vender serviços e receba um conselho personalizado em áudio pelo WhatsApp. Uma pesquisa feita para ouvir você.">
   <meta property="og:title" content="Vamos falar sobre vender? | Rebeka Rigobelli">
@@ -10,10 +10,15 @@
   <meta property="og:type" content="website">
   <title>Vamos falar sobre vender? — Rebeka Rigobelli</title>
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link rel="preload" href="/assets/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
+  <link rel="stylesheet" href="/experience.css">
   <script src="/app.js" defer></script>
+  <script src="/motion.js" defer></script>
 </head>
 <body data-screen="intro">
+  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Ir para o conteúdo</a>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
     <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol>
@@ -25,24 +30,26 @@
   <div class="site-shell">
     <header class="site-header">
       <a class="wordmark" href="/" aria-label="Rebeka Rigobelli, início"><span>Rebeka Rigobelli<span class="logo-dot">.</span></span><small>ESTRATÉGIA QUE CONECTA</small></a>
-      <a class="instagram-link" href="https://www.instagram.com/rebekarigobellii/" target="_blank" rel="noopener noreferrer"><span>@rebekarigobellii</span><svg class="icon diagonal"><use href="#arrow"/></svg></a>
+      <span class="header-edition"><span></span> ESCUTA ABERTA <b>01 — 26</b></span>
+      <a class="instagram-link" href="https://www.instagram.com/rebekarigobellii/" target="_blank" rel="noopener noreferrer" aria-label="Instagram da Rebeka Rigobelli"><span>@rebekarigobellii</span><svg class="icon diagonal" aria-hidden="true"><use href="#arrow"/></svg></a>
     </header>
     <main id="main">
       <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
         <div class="intro-copy">
           <div class="eyebrow"><span class="tiny-star">✳</span> UMA CONVERSA SOBRE O SEU NEGÓCIO</div>
-          <h1 id="intro-title" tabindex="-1">Seu talento<br>merece <em>ir além.</em></h1>
+          <h1 id="intro-title" tabindex="-1"><span class="headline-line"><span>Seu talento</span></span><span class="headline-line"><span>merece <em>ir além.</em></span></span></h1>
           <p class="intro-question">Mas o que te trava na hora de vender?</p>
           <p class="intro-description">Oii, eu sou a Rebeka! Quero entender os desafios de quem vive de prestar serviços. E ninguém melhor que você para me contar.</p>
           <div class="reward-note">
-            <span class="reward-icon"><svg class="icon"><use href="#audio"/></svg></span>
-            <p>Você compartilha sua experiência.<br><strong>Eu te devolvo um conselho personalizado em áudio.</strong><span>Uma orientação para o seu momento, pelo WhatsApp. 🤎</span></p>
+            <span class="reward-icon audio-orb" aria-hidden="true"><span class="sound-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
+            <p><span class="reward-label">UMA TROCA DE VERDADE</span>Você compartilha sua experiência.<br><strong>Eu te devolvo um conselho personalizado em áudio.</strong><span>Feito para o seu momento. Pelo WhatsApp. 🤎</span></p>
           </div>
-          <button class="button button-primary intro-cta" type="button" data-start>Quero meu conselho em áudio <svg class="icon"><use href="#arrow"/></svg></button>
+          <button class="button button-primary intro-cta" type="button" data-start><span class="button-label">Quero meu conselho em áudio</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></button>
           <div class="intro-meta"><span><svg class="icon"><use href="#clock"/></svg> Cerca de 3 minutos</span><i></i><span>4 perguntas, do seu jeito</span></div>
         </div>
         <div class="intro-visual" aria-label="Um convite para uma conversa acolhedora">
-          <div class="photo-frame"><img src="/assets/workspace-alternative.jpg" alt="Café e caderno de couro caramelo sobre uma mesa de trabalho" width="1400" height="2100" fetchpriority="high"><div class="photo-shade"></div><span class="photo-caption">VAMOS FAZER SEU NEGÓCIO ACONTECER.</span></div>
+          <div class="photo-frame"><img src="/assets/workspace-alternative.jpg" alt="Café e caderno de couro caramelo sobre uma mesa de trabalho" width="1400" height="2100" decoding="async" fetchpriority="low"><div class="photo-shade"></div><span class="photo-caption">VAMOS FAZER SEU NEGÓCIO ACONTECER.</span></div>
+          <div class="photo-detail"><span>01 / UM CONVITE</span><span>FEITO PARA OUVIR VOCÊ <svg class="icon"><use href="#arrow"/></svg></span></div>
           <div class="round-seal" aria-hidden="true"><svg viewBox="0 0 120 120"><defs><path id="seal-path" d="M60,60 m-43,0 a43,43 0 1,1 86,0 a43,43 0 1,1 -86,0"/></defs><text><textPath href="#seal-path" textLength="269">SUA EXPERIÊNCIA IMPORTA · SUA VOZ TAMBÉM · </textPath></text></svg><svg class="seal-star"><use href="#spark"/></svg></div>
           <div class="quote-card"><span class="quote-mark">“</span><p>Não existe resposta certa.<br>Existe a <em>sua história.</em></p><span class="quote-signature">E eu quero ouvir.</span></div>
           <span class="visual-edition">ESCUTA REAL. CONEXÕES REAIS.</span>
@@ -53,7 +60,7 @@
       <section id="survey-screen" class="survey-layout" hidden aria-label="Pesquisa sobre desafios comerciais">
         <aside class="survey-aside"><div class="eyebrow">PRIMEIRO, QUERO TE OUVIR</div><h2>Por trás de cada<br>negócio, existe<br><em>uma história.</em></h2><p>A sua vai me ajudar a construir um material prático para quem vive os mesmos desafios.</p><div class="aside-reward"><svg class="icon"><use href="#audio"/></svg><span>E você recebe um conselho<br>em áudio, pensado para você.</span></div><div class="aside-bottom"><svg class="icon"><use href="#spark"/></svg><span>Sem respostas certas.<br>Sem julgamento.</span></div></aside>
         <div class="survey-panel">
-          <div class="progress-heading"><span>SUA EXPERIÊNCIA CONTA</span><span id="progress-count">01 / 04</span></div><div class="progress-track" role="presentation"><div id="progress-fill"></div></div><p id="progress-label" class="sr-only" aria-live="polite">Pergunta 1 de 4</p>
+          <div class="survey-progress"><div class="progress-heading"><span>SUA EXPERIÊNCIA CONTA</span><span id="progress-count">01 / 04</span></div><div class="progress-track" role="presentation"><div id="progress-fill"></div></div><p id="progress-label" class="sr-only" aria-live="polite">Pergunta 1 de 4</p><nav id="journey-steps" class="journey-steps" aria-label="Etapas da pesquisa"><button type="button" data-journey-step="0" aria-current="step"><span>01</span> Você</button><button type="button" data-journey-step="1" disabled><span>02</span> Momento</button><button type="button" data-journey-step="2" disabled><span>03</span> Desafio</button><button type="button" data-journey-step="3" disabled><span>04</span> História</button></nav></div>
           <form id="survey-form" novalidate>
             <section data-step="0" class="question-step" aria-labelledby="question-profession">
               <span class="question-kicker">PRA GENTE SE CONHECER</span><h2 id="question-profession" data-step-title tabindex="-1">Com o que<br>você <em>trabalha?</em></h2><p class="question-description" id="profession-hint">Escolha a opção que mais combina com sua atuação.</p>
@@ -91,9 +98,9 @@
               <label for="story" class="field-label">Sua experiência <span>OBRIGATÓRIO</span></label><textarea id="story" name="story" rows="5" maxlength="1500" required aria-describedby="story-hint story-count" placeholder="Por exemplo: envio a proposta, o cliente acha caro e eu não sei como continuar a conversa…"></textarea><div class="textarea-footer"><span>Escreva do seu jeito. Estou aqui para ouvir.</span><span id="story-count">0 / 1500</span></div>
               <label for="respondent-name" class="field-label name-label">Como posso te chamar? <span>OPCIONAL</span></label><input id="respondent-name" name="respondentName" maxlength="80" autocomplete="given-name" placeholder="Seu primeiro nome">
             </section>
-            <p id="form-error" class="form-error" role="alert"></p>
-            <div class="form-actions"><button type="button" class="back-button" data-back><svg class="icon"><use href="#arrow"/></svg> Voltar</button><button type="submit" id="next-button" class="button button-primary">Próxima pergunta <svg class="icon"><use href="#arrow"/></svg></button></div>
+            <div class="form-navigation"><p id="form-error" class="form-error" role="alert"></p><div class="form-actions"><button type="button" class="back-button" data-back><svg class="icon"><use href="#arrow"/></svg> Voltar</button><button type="submit" id="next-button" class="button button-primary"><span class="button-label">Próxima pergunta</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></button></div>
             <p class="form-reassurance"><svg class="icon"><use href="#check"/></svg> Você revisa tudo antes de compartilhar.</p>
+            </div>
           </form>
         </div>
       </section>
@@ -104,6 +111,7 @@
     </main>
     <footer class="site-footer"><span>FEITO DE ESCUTA. PARA CRIAR POSSIBILIDADES.</span><span>Uma pesquisa por <a href="https://www.instagram.com/rebekarigobellii/" target="_blank" rel="noopener noreferrer">Rebeka Rigobelli <svg class="icon diagonal"><use href="#arrow"/></svg></a></span></footer>
   </div>
+  <div id="mobile-dock" class="mobile-dock"><button class="button button-primary" type="button" data-start><span class="button-label">Quero meu conselho em áudio</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></button></div>
   <noscript><div class="noscript-notice">Para responder ao formulário, ative o JavaScript no navegador. Você também pode <a href="https://api.whatsapp.com/send/?phone=5547991132038&text=Oi%2C%20Rebeka!%20Quero%20compartilhar%20meu%20desafio%20comercial%20e%20receber%20um%20conselho%20em%20%C3%A1udio.&type=phone_number&app_absent=0&utm_source=pesquisa_rebeka">conversar direto com a Rebeka no WhatsApp</a>.</div></noscript>
 </body>
 </html>

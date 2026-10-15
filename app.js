@@ -12,15 +12,24 @@
   let currentStep = 0;
   let editing = false;
   let message = '';
+  let furthestStep = 0;
 
-  function focus(element) {
-    requestAnimationFrame(() => element?.focus({ preventScroll: true }));
+  function notifyMotion() {
+    document.dispatchEvent(new Event('survey:change'));
+  }
+
+  function focus(element, scroll = false) {
+    requestAnimationFrame(() => {
+      element?.focus({ preventScroll: !scroll });
+      if (scroll) element?.scrollIntoView({ block: 'center', behavior: 'instant' });
+    });
   }
 
   function showScreen(name) {
     for (const id of screenIds) $(`#${id}-screen`).hidden = id !== name;
     document.body.dataset.screen = name === 'survey' ? 'form' : name;
     window.scrollTo({ top: 0, behavior: 'instant' });
+    notifyMotion();
   }
 
   function clearError() {
@@ -29,7 +38,9 @@
   }
 
   function showStep(index) {
+    document.body.dataset.direction = index < currentStep ? 'back' : 'forward';
     currentStep = index;
+    furthestStep = Math.max(furthestStep, index);
     clearError();
     const other = selected('profession') === 'Outro';
     $('#profession-other-wrap').hidden = !other;
@@ -41,7 +52,21 @@
     $('#progress-label').textContent = `Pergunta ${index + 1} de 4`;
     $('#progress-fill').style.width = `${(index + 1) * 25}%`;
     const label = editing ? 'Salvar alteração' : index === 3 ? 'Revisar minhas respostas' : 'Próxima pergunta';
-    nextButton.replaceChildren(document.createTextNode(label), arrow.cloneNode(true));
+    const buttonLabel = document.createElement('span');
+    buttonLabel.className = 'button-label';
+    buttonLabel.textContent = label;
+    const buttonArrow = document.createElement('span');
+    buttonArrow.className = 'button-arrow';
+    buttonArrow.append(arrow.cloneNode(true));
+    nextButton.replaceChildren(buttonLabel, buttonArrow);
+    document.querySelectorAll('[data-journey-step]').forEach(button => {
+      const stepIndex = Number(button.dataset.journeyStep);
+      button.disabled = stepIndex > furthestStep;
+      button.dataset.complete = String(stepIndex < index);
+      if (stepIndex === index) button.setAttribute('aria-current', 'step');
+      else button.removeAttribute('aria-current');
+    });
+    notifyMotion();
     focus(steps[index].querySelector('[data-step-title]'));
   }
 
@@ -129,9 +154,16 @@
     focus($('#review-title'));
   }
 
-  $('[data-start]').addEventListener('click', () => {
+  document.querySelectorAll('[data-start]').forEach(button => button.addEventListener('click', () => {
     editing = false;
     showStep(currentStep);
+  }));
+
+  $('#journey-steps').addEventListener('click', event => {
+    const button = event.target.closest('[data-journey-step]');
+    if (!button || button.disabled) return;
+    editing = false;
+    showStep(Number(button.dataset.journeyStep));
   });
 
   $('[data-back]').addEventListener('click', () => {
@@ -151,7 +183,7 @@
       const other = selected('profession') === 'Outro';
       $('#profession-other-wrap').hidden = !other;
       $('#profession-other').required = other;
-      if (other) focus($('#profession-other'));
+      if (other) focus($('#profession-other'), true);
     }
     clearError();
   });
@@ -215,6 +247,7 @@
   $('[data-restart]').addEventListener('click', () => {
     form.reset();
     currentStep = 0;
+    furthestStep = 0;
     editing = false;
     message = '';
     $('#profession-other-wrap').hidden = true;
