@@ -14,11 +14,11 @@
   <link rel="preload" href="/assets/fonts/manrope-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/styles.css">
   <link rel="stylesheet" href="/experience.css">
+  <link rel="stylesheet" href="/viewport.css">
   <script src="/app.js" defer></script>
   <script src="/motion.js" defer></script>
 </head>
 <body data-screen="intro">
-  <div id="reading-progress" class="reading-progress" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Ir para o conteúdo</a>
   <svg class="svg-defs" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
     <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15M13 5l7 7-7 7"/></symbol>
@@ -36,13 +36,13 @@
     <main id="main">
       <section id="intro-screen" class="intro-screen" aria-labelledby="intro-title">
         <div class="intro-copy">
-          <div class="eyebrow"><span class="tiny-star">✳</span> UMA CONVERSA SOBRE O SEU NEGÓCIO</div>
+          <div class="eyebrow">PESQUISA · PROFISSIONAIS DE SERVIÇOS</div>
           <h1 id="intro-title" tabindex="-1"><span class="headline-line"><span>Seu talento</span></span><span class="headline-line"><span>merece <em>ir além.</em></span></span></h1>
-          <p class="intro-question">Mas o que te trava na hora de vender?</p>
-          <p class="intro-description">Oii, eu sou a Rebeka! Quero entender os desafios de quem vive de prestar serviços. E ninguém melhor que você para me contar.</p>
+          <p class="intro-question">O que te trava na hora de vender?</p>
+          <p class="intro-description">Sou a Rebeka. Sua experiência vai ajudar a criar um material prático para quem vive de prestar serviços.</p>
           <div class="reward-note">
             <span class="reward-icon audio-orb" aria-hidden="true"><span class="sound-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></span>
-            <p><span class="reward-label">UMA TROCA DE VERDADE</span>Você compartilha sua experiência.<br><strong>Eu te devolvo um conselho personalizado em áudio.</strong><span>Feito para o seu momento. Pelo WhatsApp. 🤎</span></p>
+            <p><span class="reward-label">UMA TROCA DE VERDADE</span><strong>Conte seu desafio e receba um conselho personalizado em áudio.</strong><span>Feito por mim, para o seu momento. Pelo WhatsApp.</span></p>
           </div>
           <button class="button button-primary intro-cta" type="button" data-start><span class="button-label">Quero meu conselho em áudio</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></button>
           <div class="intro-meta"><span><svg class="icon"><use href="#clock"/></svg> Cerca de 3 minutos</span><i></i><span>4 perguntas, do seu jeito</span></div>
@@ -54,7 +54,7 @@
           <div class="quote-card"><span class="quote-mark">“</span><p>Não existe resposta certa.<br>Existe a <em>sua história.</em></p><span class="quote-signature">E eu quero ouvir.</span></div>
           <span class="visual-edition">ESCUTA REAL. CONEXÕES REAIS.</span>
         </div>
-        <div class="audience-strip"><span>UM ESPAÇO PARA QUEM CRIA, ENTREGA E EMPREENDE.</span><div>Social medias <b>✦</b> Designers <b>✦</b> Freelancers <b>✦</b> Prestadores de serviços</div></div>
+        <div class="audience-strip"><span>UM ESPAÇO PARA QUEM CRIA, ENTREGA E EMPREENDE.</span><div>Social medias <b>·</b> Designers <b>·</b> Freelancers <b>·</b> Prestadores de serviços</div></div>
       </section>
 
       <section id="survey-screen" class="survey-layout" hidden aria-label="Pesquisa sobre desafios comerciais">
@@ -63,17 +63,17 @@
           <div class="survey-progress"><div class="progress-heading"><span>SUA EXPERIÊNCIA CONTA</span><span id="progress-count">01 / 04</span></div><div class="progress-track" role="presentation"><div id="progress-fill"></div></div><p id="progress-label" class="sr-only" aria-live="polite">Pergunta 1 de 4</p><nav id="journey-steps" class="journey-steps" aria-label="Etapas da pesquisa"><button type="button" data-journey-step="0" aria-current="step"><span>01</span> Você</button><button type="button" data-journey-step="1" disabled><span>02</span> Momento</button><button type="button" data-journey-step="2" disabled><span>03</span> Desafio</button><button type="button" data-journey-step="3" disabled><span>04</span> História</button></nav></div>
           <form id="survey-form" novalidate>
             <section data-step="0" class="question-step" aria-labelledby="question-profession">
-              <span class="question-kicker">PRA GENTE SE CONHECER</span><h2 id="question-profession" data-step-title tabindex="-1">Com o que<br>você <em>trabalha?</em></h2><p class="question-description" id="profession-hint">Escolha a opção que mais combina com sua atuação.</p>
+              <span class="question-kicker">PRA GENTE SE CONHECER</span><h2 id="question-profession" data-step-title tabindex="-1">Com o que<br>você <em>trabalha?</em></h2><p class="question-description" id="profession-hint">Escolha o que combina com sua atuação.</p>
               <fieldset aria-describedby="profession-hint"><legend class="sr-only">Sua área de atuação</legend><div class="options-grid profession-options">
-                <label class="option-card"><input type="radio" name="profession" value="Social media" required><span class="option-symbol">@</span><span><strong>Social media</strong><small>Estratégia, conteúdo e conexão</small></span><span class="radio-indicator"></span></label>
-                <label class="option-card"><input type="radio" name="profession" value="Designer"><span class="option-symbol">✳</span><span><strong>Designer</strong><small>Ideias que ganham forma</small></span><span class="radio-indicator"></span></label>
-                <label class="option-card"><input type="radio" name="profession" value="Freelancer"><span class="option-symbol">↗</span><span><strong>Freelancer</strong><small>Talento com independência</small></span><span class="radio-indicator"></span></label>
-                <label class="option-card"><input type="radio" name="profession" value="Outro"><span class="option-symbol">+</span><span><strong>Outro serviço</strong><small>Meu trabalho é diferente</small></span><span class="radio-indicator"></span></label>
+                <label class="option-card"><input type="radio" name="profession" value="Social media" required><span><strong>Social media</strong><small>Estratégia, conteúdo e conexão</small></span><span class="radio-indicator"></span></label>
+                <label class="option-card"><input type="radio" name="profession" value="Designer"><span><strong>Designer</strong><small>Ideias que ganham forma</small></span><span class="radio-indicator"></span></label>
+                <label class="option-card"><input type="radio" name="profession" value="Freelancer"><span><strong>Freelancer</strong><small>Talento com independência</small></span><span class="radio-indicator"></span></label>
+                <label class="option-card"><input type="radio" name="profession" value="Outro"><span><strong>Outro serviço</strong><small>Meu trabalho é diferente</small></span><span class="radio-indicator"></span></label>
               </div></fieldset>
               <div id="profession-other-wrap" class="other-field" hidden><label for="profession-other">Me conta sua área</label><input id="profession-other" name="professionOther" placeholder="Ex.: fotografia, consultoria, redação…" maxlength="100" autocomplete="organization-title"></div>
             </section>
             <section data-step="1" class="question-step" hidden aria-labelledby="question-experience">
-              <span class="question-kicker">CADA MOMENTO É ÚNICO</span><h2 id="question-experience" data-step-title tabindex="-1">Em que fase<br>está sua <em>jornada?</em></h2><p class="question-description" id="experience-hint">Isso me ajuda a pensar em um conselho para o seu momento.</p>
+              <span class="question-kicker">CADA MOMENTO É ÚNICO</span><h2 id="question-experience" data-step-title tabindex="-1">Qual é o seu<br><em>momento?</em></h2><p class="question-description" id="experience-hint">Seu momento ajuda a personalizar o conselho.</p>
               <fieldset aria-describedby="experience-hint"><legend class="sr-only">Há quanto tempo você presta serviços?</legend><div class="options-grid one-column">
                 <label class="option-card"><input type="radio" name="experience" value="Começando agora" required><span class="option-number">01</span><span><strong>Começando agora</strong><small>Estou dando os primeiros passos</small></span><span class="radio-indicator"></span></label>
                 <label class="option-card"><input type="radio" name="experience" value="Até 1 ano"><span class="option-number">02</span><span><strong>Até 1 ano</strong><small>Construindo meu espaço no mercado</small></span><span class="radio-indicator"></span></label>
@@ -82,7 +82,7 @@
               </div></fieldset>
             </section>
             <section data-step="2" class="question-step" hidden aria-labelledby="question-challenge">
-              <span class="question-kicker">VAMOS AO QUE MAIS PEGA</span><h2 id="question-challenge" data-step-title tabindex="-1">Qual é seu maior<br>desafio para <em>vender?</em></h2><p class="question-description" id="challenge-hint">Se vários fizerem sentido, escolha o que mais te trava hoje.</p>
+              <span class="question-kicker">VAMOS AO QUE MAIS PEGA</span><h2 id="question-challenge" data-step-title tabindex="-1">O que dificulta<br><em>vender?</em></h2><p class="question-description" id="challenge-hint">Escolha o que mais te trava hoje.</p>
               <fieldset aria-describedby="challenge-hint"><legend class="sr-only">Seu principal desafio comercial</legend><div class="options-grid challenge-options">
                 <label class="option-card"><input type="radio" name="challenge" value="Prospecção" required><span class="option-number">01</span><span><strong>Encontrar clientes</strong><small>Não sei onde prospectar</small></span><span class="radio-indicator"></span></label>
                 <label class="option-card"><input type="radio" name="challenge" value="Abordagem"><span class="option-number">02</span><span><strong>Fazer a abordagem</strong><small>Travo no primeiro contato</small></span><span class="radio-indicator"></span></label>
@@ -94,7 +94,7 @@
               </div></fieldset>
             </section>
             <section data-step="3" class="question-step story-step" hidden aria-labelledby="question-story">
-              <span class="question-kicker">AGORA, COM AS SUAS PALAVRAS</span><h2 id="question-story" data-step-title tabindex="-1">Me conta o que<br>acontece <em>na prática?</em></h2><p class="question-description" id="story-hint">Pode ser uma situação recente ou algo que sempre se repete. Quanto mais contexto, mais útil pode ser meu conselho.</p>
+              <span class="question-kicker">AGORA, COM AS SUAS PALAVRAS</span><h2 id="question-story" data-step-title tabindex="-1">O que acontece<br><em>na prática?</em></h2><p class="question-description" id="story-hint">Conte uma situação real. Seu contexto me ajuda a preparar um conselho mais útil.</p>
               <label for="story" class="field-label">Sua experiência <span>OBRIGATÓRIO</span></label><textarea id="story" name="story" rows="5" maxlength="1500" required aria-describedby="story-hint story-count" placeholder="Por exemplo: envio a proposta, o cliente acha caro e eu não sei como continuar a conversa…"></textarea><div class="textarea-footer"><span>Escreva do seu jeito. Estou aqui para ouvir.</span><span id="story-count">0 / 1500</span></div>
               <label for="respondent-name" class="field-label name-label">Como posso te chamar? <span>OPCIONAL</span></label><input id="respondent-name" name="respondentName" maxlength="80" autocomplete="given-name" placeholder="Seu primeiro nome">
             </section>
@@ -105,13 +105,14 @@
         </div>
       </section>
 
-      <section id="review-screen" class="result-layout" hidden aria-labelledby="review-title"><div class="result-intro"><span class="eyebrow">CADA RESPOSTA FAZ DIFERENÇA</span><h1 id="review-title" tabindex="-1">É sobre você.<br>E o seu <em>próximo passo.</em></h1><p>Confira se está tudo do seu jeito. Vou usar esse contexto para preparar seu conselho personalizado em áudio. 🤎</p><div class="result-audio"><svg class="icon"><use href="#audio"/></svg><span>Uma escuta real.<br>Um conselho só seu.</span></div></div><div class="review-card"><div class="review-card-heading"><span>SUAS RESPOSTAS</span><svg class="icon"><use href="#spark"/></svg></div><div id="review-content"></div><div class="whatsapp-action"><a id="send-whatsapp" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer">Continuar no WhatsApp <svg class="icon"><use href="#arrow"/></svg></a><p>Uma mensagem com suas respostas será aberta. Toque em <strong>Enviar no WhatsApp</strong> para concluir e receber seu conselho.</p></div><div class="privacy-note">Suas respostas vão direto para a Rebeka. Ao enviar, ela terá acesso ao seu nome e número do WhatsApp. Não armazenamos suas respostas neste site.</div></div></section>
+      <section id="review-screen" class="result-layout" hidden aria-labelledby="review-title"><div class="result-intro"><span class="eyebrow">SUAS RESPOSTAS</span><h1 id="review-title" tabindex="-1">Seu <em>próximo passo.</em></h1><p>Confira suas respostas e continue para receber seu conselho em áudio.</p><div class="result-audio"><svg class="icon"><use href="#audio"/></svg><span>Uma escuta real.<br>Um conselho só seu.</span></div></div><div class="review-card"><div id="review-content"></div><div class="whatsapp-action"><a id="send-whatsapp" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer"><span class="button-label">Continuar no WhatsApp</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></a><p>Toque em <strong>Enviar no WhatsApp</strong> para concluir.</p></div><div class="privacy-note">Ao enviar, a Rebeka verá seu nome e número no WhatsApp. Não salvamos suas respostas neste site.</div></div></section>
 
-      <section id="handoff-screen" class="handoff-screen" hidden aria-labelledby="handoff-title"><span class="handoff-star"><svg class="icon"><use href="#spark"/></svg></span><span class="eyebrow">OBRIGADA POR DIVIDIR SUA HISTÓRIA</span><h1 id="handoff-title" tabindex="-1">Sua mensagem<br>está <em>pronta.</em></h1><p>Para concluir, toque em <strong>Enviar</strong> na conversa do WhatsApp.<br>É por lá que a Rebeka vai te responder com seu conselho personalizado em áudio. 🤎</p><a id="retry-whatsapp" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer">Abrir WhatsApp novamente <svg class="icon"><use href="#arrow"/></svg></a><button id="copy-message" class="text-button" type="button">Copiar minhas respostas</button><span id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></span><button type="button" class="restart-button" data-restart>Voltar ao início</button></section>
+      <section id="handoff-screen" class="handoff-screen" hidden aria-labelledby="handoff-title"><span class="eyebrow">OBRIGADA POR DIVIDIR SUA HISTÓRIA</span><h1 id="handoff-title" tabindex="-1">Sua mensagem<br>está <em>pronta.</em></h1><p>Toque em <strong>Enviar</strong> na conversa do WhatsApp para concluir. A Rebeka vai responder por lá com seu conselho personalizado em áudio.</p><a id="retry-whatsapp" class="button button-primary" href="#" target="_blank" rel="noopener noreferrer"><span class="button-label">Abrir WhatsApp novamente</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></a><button id="copy-message" class="text-button" type="button">Copiar minhas respostas</button><span id="copy-feedback" class="copy-feedback" role="status" aria-live="polite"></span><button type="button" class="restart-button" data-restart>Voltar ao início</button></section>
     </main>
     <footer class="site-footer"><span>FEITO DE ESCUTA. PARA CRIAR POSSIBILIDADES.</span><span>Uma pesquisa por <a href="https://www.instagram.com/rebekarigobellii/" target="_blank" rel="noopener noreferrer">Rebeka Rigobelli <svg class="icon diagonal"><use href="#arrow"/></svg></a></span></footer>
   </div>
-  <div id="mobile-dock" class="mobile-dock"><button class="button button-primary" type="button" data-start><span class="button-label">Quero meu conselho em áudio</span><span class="button-arrow"><svg class="icon"><use href="#arrow"/></svg></span></button></div>
+  <dialog id="answer-reader" class="answer-reader" aria-labelledby="reader-title"><div class="reader-shell"><div class="reader-header"><span class="eyebrow">SUA RESPOSTA COMPLETA</span><button id="reader-close" class="reader-close" type="button" aria-label="Fechar leitura"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><h2 id="reader-title" tabindex="-1"></h2><p id="reader-text" tabindex="0" aria-live="polite" aria-atomic="true"></p><nav class="reader-navigation" aria-label="Páginas da resposta"><button id="reader-prev" class="back-button" type="button"><svg class="icon"><use href="#arrow"/></svg> Anterior</button><span id="reader-count" role="status" aria-live="polite"></span><button id="reader-next" class="back-button" type="button">Próxima <svg class="icon"><use href="#arrow"/></svg></button></nav></div></dialog>
+  <dialog id="copy-dialog" class="answer-reader" aria-labelledby="copy-title"><div class="copy-shell"><div class="reader-header"><h2 id="copy-title">Copie suas respostas</h2><button id="copy-close" class="reader-close" type="button" aria-label="Fechar cópia"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button></div><p>Selecione o texto e copie para colar no WhatsApp.</p><textarea id="copy-fallback" readonly aria-label="Mensagem completa para copiar"></textarea></div></dialog>
   <noscript><div class="noscript-notice">Para responder ao formulário, ative o JavaScript no navegador. Você também pode <a href="https://api.whatsapp.com/send/?phone=5547991132038&text=Oi%2C%20Rebeka!%20Quero%20compartilhar%20meu%20desafio%20comercial%20e%20receber%20um%20conselho%20em%20%C3%A1udio.&type=phone_number&app_absent=0&utm_source=pesquisa_rebeka">conversar direto com a Rebeka no WhatsApp</a>.</div></noscript>
 </body>
 </html>

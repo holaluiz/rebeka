@@ -13,6 +13,76 @@
   let editing = false;
   let message = '';
   let furthestStep = 0;
+  const reader = $('#answer-reader');
+  let readerValue = '';
+  let readerPages = [];
+  let readerPage = 0;
+  let readerOrigin = null;
+  let readerFrame = 0;
+
+  function updateReaderPage() {
+    $('#reader-text').textContent = readerPages[readerPage] || '';
+    $('#reader-count').textContent = `${readerPage + 1} / ${readerPages.length}`;
+    $('#reader-prev').disabled = readerPage === 0;
+    $('#reader-next').disabled = readerPage >= readerPages.length - 1;
+  }
+
+  function paginateReader() {
+    if (!reader.open) return;
+    const area = $('#reader-text');
+    const characters = Array.from(readerValue);
+    readerPages = [];
+    let offset = 0;
+    while (offset < characters.length) {
+      let low = 1;
+      let high = characters.length - offset;
+      let fitting = 1;
+      while (low <= high) {
+        const count = Math.floor((low + high) / 2);
+        area.textContent = characters.slice(offset, offset + count).join('');
+        if (area.scrollHeight <= area.clientHeight + 1) {
+          fitting = count;
+          low = count + 1;
+        } else high = count - 1;
+      }
+      let part = characters.slice(offset, offset + fitting).join('');
+      const lastSpace = part.lastIndexOf(' ');
+      if (offset + fitting < characters.length && lastSpace > part.length * .65) {
+        part = part.slice(0, lastSpace + 1);
+        fitting = Array.from(part).length;
+      }
+      readerPages.push(part);
+      offset += fitting;
+    }
+    if (!readerPages.length) readerPages = [''];
+    readerPage = Math.min(readerPage, readerPages.length - 1);
+    updateReaderPage();
+  }
+
+  function openReader(label, value, origin) {
+    readerValue = value;
+    readerPage = 0;
+    readerOrigin = origin;
+    $('#reader-title').textContent = label;
+    reader.showModal();
+    paginateReader();
+    focus($('#reader-title'));
+  }
+
+  $('#reader-close').addEventListener('click', () => reader.close());
+  $('#copy-close').addEventListener('click', () => $('#copy-dialog').close());
+  $('#copy-dialog').addEventListener('close', () => focus($('#copy-message')));
+  reader.addEventListener('close', () => focus(readerOrigin));
+  $('#reader-next').addEventListener('click', () => {
+    if (readerPage < readerPages.length - 1) { readerPage++; updateReaderPage(); }
+  });
+  $('#reader-prev').addEventListener('click', () => {
+    if (readerPage > 0) { readerPage--; updateReaderPage(); }
+  });
+  window.addEventListener('resize', () => {
+    cancelAnimationFrame(readerFrame);
+    readerFrame = requestAnimationFrame(paginateReader);
+  });
 
   function notifyMotion() {
     document.dispatchEvent(new Event('survey:change'));
@@ -21,7 +91,7 @@
   function focus(element, scroll = false) {
     requestAnimationFrame(() => {
       element?.focus({ preventScroll: !scroll });
-      if (scroll) element?.scrollIntoView({ block: 'center', behavior: 'instant' });
+      if (scroll) window.scrollTo({ top: 0, behavior: 'instant' });
     });
   }
 
@@ -105,13 +175,13 @@
 
   function buildMessage(data) {
     return [
-      'Oii, Rebeka! 🤎 Vim responder à sua pesquisa sobre os desafios de vender serviços.',
+      'Oi, Rebeka! Vim responder à sua pesquisa sobre os desafios de vender serviços.',
       data.name ? `Meu nome: ${data.name}` : '',
       `Minha área: ${data.profession}`,
       `Meu momento: ${data.experience}`,
       `Meu maior desafio: ${data.challenge}`,
       `O que acontece na prática:\n${data.story}`,
-      'Quero receber meu conselho personalizado em áudio sobre esse desafio. 🤎'
+      'Quero receber meu conselho personalizado em áudio sobre esse desafio.'
     ].filter(Boolean).join('\n\n');
   }
 
@@ -127,8 +197,19 @@
     edit.dataset.editStep = String(step);
     edit.textContent = 'Editar';
     edit.setAttribute('aria-label', `Editar: ${label.toLowerCase()}`);
-    const answer = document.createElement('p');
-    answer.textContent = value;
+    const longAnswer = value.length > 55;
+    const answer = document.createElement(longAnswer ? 'button' : 'p');
+    if (longAnswer) {
+      answer.type = 'button';
+      answer.className = 'review-read';
+      answer.setAttribute('aria-label', `Ler resposta completa: ${label.toLowerCase()}`);
+      const text = document.createElement('span');
+      text.textContent = value;
+      const icon = arrow.cloneNode(true);
+      icon.setAttribute('aria-hidden', 'true');
+      answer.append(text, icon);
+      answer.addEventListener('click', () => openReader(label, value, answer));
+    } else answer.textContent = value;
     header.append(heading, edit);
     row.append(header, answer);
     return row;
@@ -141,8 +222,8 @@
       reviewRow('Sua área', data.profession, 0),
       reviewRow('Seu momento', data.experience, 1),
       reviewRow('Seu maior desafio', data.challenge, 2),
-      reviewRow('Sua experiência', data.story, 3),
-      reviewRow('Como posso te chamar', data.name || 'Prefiro não informar', 3)
+      reviewRow('Como posso te chamar', data.name || 'Prefiro não informar', 3),
+      reviewRow('Sua experiência', data.story, 3)
     );
     message = buildMessage(data);
     const url = new URL('https://api.whatsapp.com/send/');
@@ -227,20 +308,13 @@
       await navigator.clipboard.writeText(message);
       feedback.textContent = 'Respostas copiadas! Agora é só colar na conversa com a Rebeka.';
     } catch {
-      // Keep the complete message selectable if clipboard access is unavailable.
-      let fallback = $('#copy-fallback');
-      if (!fallback) {
-        fallback = document.createElement('textarea');
-        fallback.id = 'copy-fallback';
-        fallback.readOnly = true;
-        fallback.rows = 7;
-        fallback.setAttribute('aria-label', 'Selecione e copie suas respostas');
-        feedback.after(fallback);
-      }
+      // A separate dialog keeps the underlying screen fitted to the viewport.
+      const fallback = $('#copy-fallback');
       fallback.value = message;
+      $('#copy-dialog').showModal();
       fallback.focus();
       fallback.select();
-      feedback.textContent = 'Selecione o texto abaixo e copie para colar no WhatsApp.';
+      feedback.textContent = 'Suas respostas estão prontas para copiar.';
     }
   });
 
@@ -254,7 +328,7 @@
     $('#profession-other').required = false;
     $('#story-count').textContent = '0 / 1500';
     $('#copy-feedback').textContent = '';
-    $('#copy-fallback')?.remove();
+    $('#copy-fallback').value = '';
     $('#send-whatsapp').href = '#';
     $('#retry-whatsapp').href = '#';
     $('#review-content').replaceChildren();

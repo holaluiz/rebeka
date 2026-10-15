@@ -7,10 +7,11 @@ Formulário editorial e responsivo sobre os desafios comerciais de profissionais
 - Abertura com convite e recompensa em destaque.
 - Quatro perguntas: profissão, tempo de atuação, principal desafio e relato livre. Nome opcional.
 - Navegação com progresso, validação e preservação das respostas enquanto a página estiver aberta.
-- Revisão com edição antes de compartilhar.
+- Revisão compacta com edição antes de compartilhar. Respostas longas abrem um leitor paginado que preserva o texto completo.
 - WhatsApp com a mensagem completa preparada para **+55 47 99113-2038**. A pessoa ainda precisa tocar em **Enviar no WhatsApp**.
 - Alternativa para copiar a mensagem, caso o WhatsApp não abra.
-- Experiência pensada primeiro para celular: controles de toque maiores, navegação fixa na base, etapas revisitáveis e campos com fonte de 16 px para evitar zoom automático no iOS.
+- Experiência em telas completas, sem rolagem da página: cada etapa cabe na área disponível, com grades próprias para celulares menores e modo paisagem. As etapas podem ser revisitadas e os campos usam fonte de 16 px para evitar zoom automático no iOS.
+- O teclado virtual adapta a área de resposta e mantém os controles acessíveis. Campos de texto longos conservam a navegação nativa dentro do editor.
 - Motion sem dependências: entrada tipográfica, transições de perguntas, seleção com check animado e botões com preenchimento. Efeitos de ponteiro são complementos para desktop. A preferência por redução de movimento é respeitada.
 
 O conselho em áudio é preparado e enviado pela Rebeka na conversa. O site não gera nem envia áudio automaticamente e não promete prazo de resposta.
@@ -39,6 +40,7 @@ Abra `http://127.0.0.1:4173`. Para conferir a sintaxe: `npm run check`.
 - Textos e perguntas: `index.html`.
 - Cores, fontes e responsividade: `styles.css`.
 - Sistema de interação e ajustes mobile: `experience.css` e `motion.js`.
+- Composição de telas sem rolagem e leitor de respostas: `viewport.css`.
 - Validação, revisão e mensagem do WhatsApp: `app.js`.
 - Telefone de destino: constante `WHATSAPP_PHONE` em `app.js`. Atualize também o link alternativo em `<noscript>` no HTML.
 

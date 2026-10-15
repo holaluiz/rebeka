@@ -19,30 +19,32 @@
   let scrollFrame = 0;
   let pointerFrame = 0;
   const pointerUpdates = new Map();
-  const introCta = document.querySelector('.intro-cta');
-  let introCtaVisible = true;
+  let largestViewportHeight = window.innerHeight;
+  let viewportFrame = 0;
 
-  function updateMobileDock() {
-    const dock = document.getElementById('mobile-dock');
-    if (!dock || !introCta) {
-      document.body.classList.remove('show-mobile-dock');
-      return;
-    }
-    if (!dockObserver) {
-      const rect = introCta.getBoundingClientRect();
-      introCtaVisible = rect.bottom > 0 && rect.top < window.innerHeight;
-    }
-    const visible = document.body.dataset.screen === 'intro' && window.scrollY > 180 && !introCtaVisible;
-    document.body.classList.toggle('show-mobile-dock', visible);
-    dock.inert = !visible;
-    dock.setAttribute('aria-hidden', String(!visible));
+  function fitViewport() {
+    viewportFrame = 0;
+    const viewport = window.visualViewport;
+    const height = Math.round(viewport?.height || window.innerHeight);
+    const active = document.activeElement;
+    const editing = active instanceof HTMLTextAreaElement || (active instanceof HTMLInputElement && active.type !== 'radio');
+    if (!editing) largestViewportHeight = window.innerHeight;
+    const keyboard = editing && largestViewportHeight - height > 120;
+    document.documentElement.style.setProperty('--viewport-height', `${height}px`);
+    document.body.classList.toggle('keyboard-open', keyboard);
+    document.body.dataset.focusedField = editing ? active.id : '';
+    if (window.scrollY) window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
-  const dockObserver = introCta && 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
-    introCtaVisible = entries[0].isIntersecting;
-    updateMobileDock();
-  }, { threshold: 0 }) : null;
-  if (dockObserver) dockObserver.observe(introCta);
+  function scheduleViewportFit() {
+    if (!viewportFrame) viewportFrame = requestAnimationFrame(fitViewport);
+  }
+
+  window.visualViewport?.addEventListener('resize', scheduleViewportFit, { passive: true });
+  window.visualViewport?.addEventListener('scroll', scheduleViewportFit, { passive: true });
+  document.addEventListener('focusin', scheduleViewportFit);
+  document.addEventListener('focusout', scheduleViewportFit);
+  window.addEventListener('resize', scheduleViewportFit, { passive: true });
 
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     for (const entry of entries) {
@@ -54,7 +56,6 @@
 
   function readingProgress() {
     scrollFrame = 0;
-    updateMobileDock();
     const bar = document.getElementById('reading-progress');
     if (!bar) return;
     const remaining = document.documentElement.scrollHeight - window.innerHeight;
@@ -153,7 +154,7 @@
   }
 
   function scheduleRefresh() {
-    updateMobileDock();
+    scheduleViewportFit();
     if (!refreshFrame) refreshFrame = requestAnimationFrame(refresh);
   }
 
@@ -203,6 +204,6 @@
 
   // Content remains visible when this enhancement cannot run.
   refresh();
-  updateMobileDock();
+  fitViewport();
   document.body.classList.add('motion-ready');
 })();
