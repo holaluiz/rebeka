@@ -1,0 +1,13 @@
+{
+  "name": "rebeka-pesquisa",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Uma pesquisa interativa com recompensa em áudio personalizado e envio pelo WhatsApp.",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "start": "node scripts/serve.mjs",
+    "check": "node --check app.js && node --check scripts/serve.mjs"
+  },
+  "engines": { "node": ">=20" }
+}
